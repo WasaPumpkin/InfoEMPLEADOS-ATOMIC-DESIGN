@@ -43,6 +43,8 @@ export const deleteTask = asyncHandler(async (req, res) => {
 // @desc    Employee marks a task as complete and adds a completion message
 // @route   PUT /api/tasks/:id/complete
 // @access  Private
+// @route   PUT /api/tasks/:id/complete
+// @access  Private
 export const completeTask = asyncHandler(async (req, res) => {
   const task = await Task.findById(req.params.id);
   if (!task) {
@@ -50,8 +52,8 @@ export const completeTask = asyncHandler(async (req, res) => {
     throw new Error('Task not found');
   }
 
-  // Only allow the assigned employee to mark the task as complete
-  if (task.assignedTo.toString() !== req.user.id) {
+  // Allow the assigned employee OR an admin to mark the task as complete
+  if (task.assignedTo.toString() !== req.user.id && req.user.role !== 'admin') {
     res.status(403);
     throw new Error('Not authorized to complete this task');
   }
@@ -63,129 +65,76 @@ export const completeTask = asyncHandler(async (req, res) => {
   const updatedTask = await task.save();
   res.json(updatedTask);
 });
+
+
 // @desc    Get tasks for the logged in user
 //          For admin: tasks they created
 //          For employee: tasks assigned to them
-// @route   GET /api/tasks
-// @access  Private
 export const getTasks = asyncHandler(async (req, res) => {
-  let tasks;
+  const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
+  const limit = parseInt(req.query.limit) || 5; // Default to 5 tasks per page if not provided
+  const skip = (page - 1) * limit; // Calculate the number of documents to skip
+
+  let query;
   if (req.user.role === 'admin') {
-    tasks = await Task.find({ createdBy: req.user.id });
+    query = { createdBy: req.user.id }; // Admin sees tasks they created
   } else {
-    tasks = await Task.find({ assignedTo: req.user.id });
+    query = { assignedTo: req.user.id }; // Employee sees tasks assigned to them
   }
-  res.json(tasks);
+
+  // Fetch paginated tasks
+  const tasks = await Task.find(query)
+    .skip(skip)
+    .limit(limit)
+    .exec(); // Use .exec() to return a proper Promise
+
+  // Get the total count of tasks for pagination metadata
+  const totalTasks = await Task.countDocuments(query);
+
+  // Calculate total pages
+  const totalPages = Math.ceil(totalTasks / limit);
+
+  // Send response with tasks and pagination metadata
+  res.json({
+    success: true,
+    tasks,
+    page,
+    limit,
+    totalPages,
+    totalTasks,
+  });
 });
 
 
 
+// @desc    Admin edits a task (only tasks created by admin)
+// @route   PUT /api/tasks/:id
+// @access  Private/Admin
+export const editTask = asyncHandler(async (req, res) => {
+  const task = await Task.findById(req.params.id);
+  if (!task) {
+    res.status(404);
+    throw new Error('Task not found');
+  }
 
-// import asyncHandler from 'express-async-handler';
-// import mongoose from 'mongoose';
-// import Task from '../models/taskModel.js';
-// import logger from '../utils/logger.js';
+  // Only allow the admin who created the task to edit it
+  if (task.createdBy.toString() !== req.user.id) {
+    res.status(403);
+    throw new Error('Not authorized to edit this task');
+  }
 
-// // @desc    Admin creates a task and assigns it to an employee
-// // @route   POST /api/tasks
-// // @access  Private/Admin
-// export const createTask = asyncHandler(async (req, res) => {
-//   const { text, assignedTo } = req.body;
+  const { text, assignedTo } = req.body;
 
-//   if (!text || !assignedTo) {
-//     res.status(400);
-//     throw new Error(
-//       'Please provide a valid task text and an employee to assign it to.'
-//     );
-//   }
+  if (text) {
+    task.text = text.trim();
+  }
+  if (assignedTo) {
+    task.assignedTo = assignedTo;
+  }
 
-//   if (typeof text !== 'string' || text.trim().length === 0) {
-//     res.status(400);
-//     throw new Error('Task text must be a non-empty string.');
-//   }
+  const updatedTask = await task.save();
+  res.json(updatedTask);
+});
 
-//   if (!mongoose.Types.ObjectId.isValid(assignedTo)) {
-//     res.status(400);
-//     throw new Error('Invalid employee ID.');
-//   }
 
-//   const task = await Task.create({
-//     text: text.trim(),
-//     createdBy: req.user.id,
-//     assignedTo,
-//   });
 
-//   logger.info(`Task ${task._id} created by user ${req.user.id}`);
-//   res.status(201).json(task);
-// });
-
-// // @desc    Admin deletes a task (only tasks created by admin)
-// // @route   DELETE /api/tasks/:id
-// // @access  Private/Admin
-// export const deleteTask = asyncHandler(async (req, res) => {
-//   const task = await Task.findById(req.params.id);
-//   if (!task) {
-//     res.status(404);
-//     throw new Error('Task not found');
-//   }
-
-//   if (task.createdBy.toString() !== req.user.id) {
-//     res.status(403);
-//     throw new Error('Not authorized to delete this task');
-//   }
-
-//   await task.deleteOne();
-//   logger.info(`Task ${task._id} deleted by user ${req.user.id}`);
-
-//   res.json({ message: 'Task removed' });
-// });
-
-// // @desc    Employee marks a task as complete and adds a completion message
-// // @route   PUT /api/tasks/:id/complete
-// // @access  Private
-// export const completeTask = asyncHandler(async (req, res) => {
-//   const task = await Task.findById(req.params.id);
-//   if (!task) {
-//     res.status(404);
-//     throw new Error('Task not found');
-//   }
-
-//   if (task.assignedTo.toString() !== req.user.id) {
-//     res.status(403);
-//     throw new Error('Not authorized to complete this task');
-//   }
-
-//   task.status = 'completed';
-//   task.completedAt = Date.now();
-//   task.completionMessage = req.body.completionMessage;
-
-//   const updatedTask = await task.save();
-//   logger.info(`Task ${task._id} marked as completed by user ${req.user.id}`);
-
-//   res.json(updatedTask);
-// });
-
-// // @desc    Get tasks for the logged in user
-// // @route   GET /api/tasks
-// // @access  Private
-// export const getTasks = asyncHandler(async (req, res) => {
-//   const page = parseInt(req.query.page) || 1;
-//   const limit = parseInt(req.query.limit) || 10;
-//   const skip = (page - 1) * limit;
-
-//   let tasks;
-//   if (req.user.role === 'admin') {
-//     tasks = await Task.find({ createdBy: req.user.id }).skip(skip).limit(limit);
-//   } else {
-//     tasks = await Task.find({ assignedTo: req.user.id })
-//       .skip(skip)
-//       .limit(limit);
-//   }
-
-//   res.json({
-//     page,
-//     limit,
-//     total: tasks.length,
-//     tasks,
-//   });
-// });

@@ -1,11 +1,13 @@
 // routes/userRoutes.js
 // routes/userRoutes.js
+// routes/userRoutes.js
 import express from 'express';
 import {
   registerUser,
   loginUser,
   getCurrentUser,
   getEmployees,
+  getUserById, // Add this import
 } from '../controllers/userController.js';
 import { protect, adminOnly } from '../middleware/authMiddleware.js';
 
@@ -22,5 +24,8 @@ router.get('/current', protect, getCurrentUser);
 
 // Get all employees (admin only)
 router.get('/employees', protect, adminOnly, getEmployees);
+
+// Get a single user by ID (add this route)
+router.get('/:userId', protect, getUserById);
 
 export default router;

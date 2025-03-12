@@ -1,203 +1,157 @@
-//features/tasks/taskSlice.tsx
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
-import { RootState } from '../store'; // Adjust the path to your store file
+// // //features/tasks/taskSlice.tsx
+// import { createSlice } from '@reduxjs/toolkit';
+// import initialState from './initialState';
+// import { extraReducers } from './extraReducers';
+// import { resetErrorReducer } from './reducers';
+// import {
+//   fetchTasks,
+//   createTask,
+//   deleteTask,
+//   completeTask,
+//   editTask,
+// } from './taskThunks'; // Import thunks
 
-// Define the API URL
-const API_URL = 'http://localhost:7000/api/tasks'; // Local backend API URL
-// const API_URL = 'https://infoempleados-3q11.onrender.com/api/tasks'; // Production backend API URL
+// const taskSlice = createSlice({
+//   name: 'tasks',
+//   initialState,
+//   reducers: {
+//     resetError: resetErrorReducer,
+//   },
+//   extraReducers,
+// });
 
-// Define the Task interface
-export interface Task {
-  _id: string;
-  text: string;
-  assignedTo: string;
-  status: string;
-  completedAt?: string;
-  completionMessage?: string;
-}
+// // Export actions
+// export const { resetError } = taskSlice.actions;
 
-// Define the TaskState interface
-export interface TaskState {
+// // Export thunks as actions
+// export { fetchTasks, createTask, deleteTask, completeTask, editTask };
+
+// export default taskSlice.reducer;
+
+// features/tasks/taskSlice.tsx
+// src/features/tasks/taskSlice.ts
+// Import PayloadAction from @reduxjs/toolkit
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { fetchTasks, createTask, deleteTask, completeTask, editTask } from './taskThunks';
+import { Task } from './types';
+
+interface TaskState {
   tasks: Task[];
+  page: number;
+  limit: number;
+  totalPages: number;
+  totalTasks: number;
   loading: boolean;
   error: string | null;
 }
 
-// Define the CreateTaskPayload interface
-export interface CreateTaskPayload {
-  text: string;
-  assignedTo: string;
-}
-
-// Define the CompleteTaskPayload interface
-export interface CompleteTaskPayload {
-  taskId: string;
-  completionMessage: string;
-}
-
-// Define the initial state
 const initialState: TaskState = {
   tasks: [],
+  page: 1,
+  limit: 10,
+  totalPages: 1,
+  totalTasks: 0,
   loading: false,
   error: null,
 };
 
-// Define the fetchTasks async thunk
-export const fetchTasks = createAsyncThunk(
-  'tasks/fetchTasks',
-  async (_, { getState, rejectWithValue }) => {
-    try {
-      const { auth } = getState() as RootState; // Access the auth state with proper typing
-      const config = {
-        headers: { Authorization: `Bearer ${auth.userInfo?.token}` },
-      };
-      const response = await axios.get(API_URL, config);
-      return response.data as Task[];
-    } catch (error) {
-      const axiosError = error as AxiosError<{ message: string }>;
-      return rejectWithValue(
-        axiosError.response?.data?.message || axiosError.message
-      );
-    }
-  }
-);
-
-// Define the createTask async thunk
-export const createTask = createAsyncThunk(
-  'tasks/createTask',
-  async (
-    { text, assignedTo }: CreateTaskPayload,
-    { getState, rejectWithValue }
-  ) => {
-    try {
-      const { auth } = getState() as RootState; // Access the auth state with proper typing
-      const config = {
-        headers: { Authorization: `Bearer ${auth.userInfo?.token}` },
-      };
-      const response = await axios.post(API_URL, { text, assignedTo }, config);
-      return response.data as Task;
-    } catch (error) {
-      const axiosError = error as AxiosError<{ message: string }>;
-      return rejectWithValue(
-        axiosError.response?.data?.message || axiosError.message
-      );
-    }
-  }
-);
-
-// Define the deleteTask async thunk
-export const deleteTask = createAsyncThunk(
-  'tasks/deleteTask',
-  async (taskId: string, { getState, rejectWithValue }) => {
-    try {
-      const { auth } = getState() as RootState; // Access the auth state with proper typing
-      const config = {
-        headers: { Authorization: `Bearer ${auth.userInfo?.token}` },
-      };
-      await axios.delete(`${API_URL}/${taskId}`, config);
-      return taskId;
-    } catch (error) {
-      const axiosError = error as AxiosError<{ message: string }>;
-      return rejectWithValue(
-        axiosError.response?.data?.message || axiosError.message
-      );
-    }
-  }
-);
-
-// Define the completeTask async thunk
-export const completeTask = createAsyncThunk(
-  'tasks/completeTask',
-  async (
-    { taskId, completionMessage }: CompleteTaskPayload,
-    { getState, rejectWithValue }
-  ) => {
-    try {
-      const { auth } = getState() as RootState; // Access the auth state with proper typing
-      const config = {
-        headers: { Authorization: `Bearer ${auth.userInfo?.token}` },
-      };
-      const response = await axios.put(
-        `${API_URL}/${taskId}/complete`,
-        { completionMessage },
-        config
-      );
-      return response.data as Task;
-    } catch (error) {
-      const axiosError = error as AxiosError<{ message: string }>;
-      return rejectWithValue(
-        axiosError.response?.data?.message || axiosError.message
-      );
-    }
-  }
-);
-
-// Create the task slice
 const taskSlice = createSlice({
   name: 'tasks',
   initialState,
-  reducers: {},
+  reducers: {
+    resetError: (state) => {
+      state.error = null;
+    },
+    // Add a new reducer to update the page
+    setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
-      // Fetch tasks
+      // Fetch Tasks
       .addCase(fetchTasks.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchTasks.fulfilled, (state, action: PayloadAction<Task[]>) => {
+      .addCase(fetchTasks.fulfilled, (state, action) => {
         state.loading = false;
-        state.tasks = action.payload;
+        state.tasks = action.payload.tasks;
+        state.page = action.payload.page;
+        state.limit = action.payload.limit;
+        state.totalPages = action.payload.totalPages;
+        state.totalTasks = action.payload.totalTasks;
       })
       .addCase(fetchTasks.rejected, (state, action) => {
         state.loading = false;
-        state.error = (action.payload as string) ?? 'Failed to fetch tasks.';
+        state.error = action.payload as string;
       })
-      // Create task
+
+      // Create Task
       .addCase(createTask.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(createTask.fulfilled, (state, action: PayloadAction<Task>) => {
+      .addCase(createTask.fulfilled, (state, action) => {
         state.loading = false;
-        state.tasks.unshift(action.payload);
+        state.tasks.unshift(action.payload); // Add the new task to the beginning of the list
+        state.totalTasks += 1; // Increment totalTasks
+        state.totalPages = Math.ceil(state.totalTasks / state.limit); // Recalculate totalPages
       })
       .addCase(createTask.rejected, (state, action) => {
         state.loading = false;
-        state.error = (action.payload as string) ?? 'Failed to create task.';
+        state.error = action.payload as string;
       })
-      // Delete task
+
+      // Delete Task
       .addCase(deleteTask.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(deleteTask.fulfilled, (state, action: PayloadAction<string>) => {
+      .addCase(deleteTask.fulfilled, (state, action) => {
         state.loading = false;
-        state.tasks = state.tasks.filter((t) => t._id !== action.payload);
+        state.tasks = state.tasks.filter((task) => task._id !== action.payload); // Remove the deleted task
       })
       .addCase(deleteTask.rejected, (state, action) => {
         state.loading = false;
-        state.error = (action.payload as string) ?? 'Failed to delete task.';
+        state.error = action.payload as string;
       })
-      // Complete task
+
+      // Complete Task
       .addCase(completeTask.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(completeTask.fulfilled, (state, action: PayloadAction<Task>) => {
+      .addCase(completeTask.fulfilled, (state, action) => {
         state.loading = false;
-        const index = state.tasks.findIndex(
-          (t) => t._id === action.payload._id
-        );
+        const index = state.tasks.findIndex((task) => task._id === action.payload._id);
         if (index !== -1) {
-          state.tasks[index] = action.payload;
+          state.tasks[index] = action.payload; // Update the task in the list
         }
       })
       .addCase(completeTask.rejected, (state, action) => {
         state.loading = false;
-        state.error = (action.payload as string) ?? 'Failed to complete task.';
+        state.error = action.payload as string;
+      })
+
+      // Edit Task
+      .addCase(editTask.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(editTask.fulfilled, (state, action) => {
+        state.loading = false;
+        const index = state.tasks.findIndex((task) => task._id === action.payload._id);
+        if (index !== -1) {
+          state.tasks[index] = action.payload; // Update the task in the list
+        }
+      })
+      .addCase(editTask.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });
 
+export const { resetError, setPage } = taskSlice.actions;
 export default taskSlice.reducer;

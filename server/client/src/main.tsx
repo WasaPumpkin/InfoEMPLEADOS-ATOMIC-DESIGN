@@ -2,7 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './App';
-import ErrorBoundary from './components/atoms/ErrorBoundary'; // Import ErrorBoundary
+import ErrorBoundary from './components/atoms/ErrorBoundary/ErrorBoundary'; // Import ErrorBoundary
 import  store  from './features/store';
 
 const rootElement = document.getElementById('root');

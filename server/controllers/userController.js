@@ -11,6 +11,25 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
+// @desc    Get a single user by ID
+// @route   GET /api/users/:userId
+// @access  Private
+export const getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.userId).select('-password'); // Exclude password
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  }
+
+  // Allow access if the requesting user is an Admin or is accessing their own data
+  if (req.user.role !== 'admin' && req.user.id !== req.params.userId) {
+    res.status(403);
+    throw new Error('Forbidden: Insufficient permissions');
+  }
+
+  res.json(user);
+});
+
 // @desc    Register new user
 // @route   POST /api/users
 // @access  Public

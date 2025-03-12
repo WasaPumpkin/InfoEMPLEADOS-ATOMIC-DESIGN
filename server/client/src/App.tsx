@@ -29,14 +29,15 @@
 // export default App;
 
 // src/App.tsx
+// src/App.tsx
 import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Dashboard from './components/pages/Dashboard';
-import Login from './components/pages/LoginPage';
-import Register from './components/pages/RegisterPage';
-import Layout from './components/templates/Layout'; // Import Layout or MainLayout
+import Dashboard from './components/pages/Dashboard/Dashboard';
+import Login from './components/pages/LoginPage/LoginPage';
+import Register from './components/pages/RegisterPage/RegisterPage';
+import MainLayout from './components/templates/MainLayout/MainLayout'; // Use MainLayout instead of Layout
 
 // Import your CSS files
 import './styles/main.css';
@@ -64,11 +65,9 @@ const App: React.FC = () => {
           <Route
             path="/"
             element={
-              <Layout toggleTheme={toggleTheme}>
-                {' '}
-                {/* Pass toggleTheme to Layout */}
-                <Dashboard /> {/* Remove toggleTheme here */}
-              </Layout>
+              <MainLayout toggleTheme={toggleTheme}>
+                <Dashboard />
+              </MainLayout>
             }
           />
           <Route path="/login" element={<Login />} />
