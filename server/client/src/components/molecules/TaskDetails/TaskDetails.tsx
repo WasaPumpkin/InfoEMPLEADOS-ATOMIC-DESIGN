@@ -1,7 +1,7 @@
 // src/components/molecules/TaskDetails/TaskDetails.tsx
 import React from 'react';
-import TaskStatus from '../../atoms/TaskStatus/TaskStatus'; // Updated import
-import { Task } from '../../../features/tasks/types';
+import TaskStatus from '@components/atoms/TaskStatus/TaskStatus'; // Use the alias
+import { Task } from '@features/tasks/types'; // Use the alias
 
 interface TaskDetailsProps {
   task: Task;

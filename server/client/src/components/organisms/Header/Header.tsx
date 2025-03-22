@@ -2,9 +2,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../../../features/auth/authSlice';
-import { RootState } from '../../../features/store';
-import logo from '../../../img/Logo.png';
+import { logout } from '@features/auth/authSlice'; 
+import { RootState } from '@features/store'; 
+import logo from '@img/Logo.png'; 
+import Button from '@components/atoms/Button/Button'; 
 
 interface HeaderProps {
   toggleTheme: () => void; // Define the prop type
@@ -36,9 +37,13 @@ const Header: React.FC<HeaderProps> = ({ toggleTheme }) => {
                 Hello, {userInfo.name} (
                 {userInfo.role === 'admin' ? 'Admin' : 'Employee'})
               </span>
-              <button onClick={handleLogout} className="header__logout-btn">
+              <Button
+                onClick={handleLogout}
+                className="header__logout-btn"
+                ariaLabel="Logout"
+              >
                 Logout
-              </button>
+              </Button>
             </>
           ) : (
             <>
@@ -51,9 +56,13 @@ const Header: React.FC<HeaderProps> = ({ toggleTheme }) => {
             </>
           )}
           {/* Add Theme Toggle Button */}
-          <button onClick={toggleTheme} className="header__theme-toggle">
+          <Button
+            onClick={toggleTheme}
+            className="header__theme-toggle"
+            ariaLabel="Toggle Theme"
+          >
             Toggle Theme
-          </button>
+          </Button>
         </nav>
       </div>
     </header>

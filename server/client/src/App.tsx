@@ -1,34 +1,4 @@
 // src/App.tsx
-// import React from 'react';
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import Header from './components/organisms/Header/Header';
-// import Dashboard from './components/pages/Dashboard/Dashboard';
-// import Login from './components/pages/LoginPage';
-// import Register from './components/pages/RegisterPage';
-// import { ToastContainer } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-
-// const App: React.FC = () => {
-//   return (
-//     <Router>
-//       <div className="app">
-//         <Header />
-//         <main className="app__main">
-//           <Routes>
-//             <Route path="/" element={<Dashboard />} />
-//             <Route path="/login" element={<Login />} />
-//             <Route path="/register" element={<Register />} />
-//           </Routes>
-//         </main>
-//         <ToastContainer />
-//       </div>
-//     </Router>
-//   );
-// };
-
-// export default App;
-
-// src/App.tsx
 // src/App.tsx
 import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';

@@ -1,59 +1,12 @@
-// // //components/pages/Dashboard/Dashboard.tsx
-// import React, { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
-// import type { AppDispatch, RootState } from '../../../features/store';
-// import { fetchTasks } from '../../../features/tasks/taskSlice';
-// import TaskForm from '../../organisms/TaskForm/TaskForm';
-// import TaskList from '../../organisms/TaskList/TaskList'; // Correct import path
-
-// const Dashboard: React.FC = () => {
-//   // Use the typed dispatch so that async thunks work correctly.
-//   const dispatch = useDispatch<AppDispatch>();
-//   const navigate = useNavigate();
-
-//   // Type the state using RootState
-//   const { tasks, loading, error } = useSelector(
-//     (state: RootState) => state.tasks
-//   );
-//   const { userInfo } = useSelector((state: RootState) => state.auth);
-
-//   useEffect(() => {
-//     if (!userInfo) {
-//       navigate('/login');
-//     } else {
-//       dispatch(fetchTasks());
-//     }
-//   }, [userInfo, navigate, dispatch]);
-
-//   return (
-//     <div className="dashboard">
-//       <main className="dashboard__main">
-//         <h2 className="dashboard__title">Tareas</h2>
-//         {error && <div className="dashboard__error">{error}</div>}
-//         {userInfo && userInfo.role === 'admin' && <TaskForm />}
-//         {loading ? (
-//           <p>Loading tasks...</p>
-//         ) : (
-//           <TaskList tasks={tasks} userRole={userInfo?.role || 'employee'} />
-//         )}
-//       </main>
-//     </div>
-//   );
-// };
-
-// export default Dashboard;
-
-
 // components/pages/Dashboard/Dashboard.tsx
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import type { AppDispatch, RootState } from '../../../features/store';
-import { fetchTasks, createTask } from '../../../features/tasks/taskThunks'; // Import createTask
-import TaskForm from '../../organisms/TaskForm/TaskForm';
-import TaskList from '../../organisms/TaskList/TaskList';
-import Spinner from '../../atoms/Spinner/Spinner'; // Add a Spinner component for loading state
+import type { AppDispatch, RootState } from '@features/store'; 
+import { fetchTasks, createTask } from '@features/tasks/taskThunks'; 
+import TaskForm from '@components/organisms/TaskForm/TaskForm'; 
+import TaskList from '@components/organisms/TaskList/TaskList'; 
+import Spinner from '@components/atoms/Spinner/Spinner'; 
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

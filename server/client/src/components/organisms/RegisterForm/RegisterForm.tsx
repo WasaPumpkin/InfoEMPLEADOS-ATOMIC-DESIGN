@@ -1,12 +1,11 @@
 //src/components/organisms/RegisterForm/RegisterForm.tsx
 import React from 'react';
 import { Formik, Form } from 'formik';
-import InputField from '../../molecules/InputField/InputField';
-import PasswordInput from '../../molecules/PasswordInput/PasswordInput';
-import SelectField from '../../molecules/SelectField/SelectField';
-import Button from '../../atoms/Button/Button';
-import ErrorMessage from '../../atoms/ErrorMessage/ErrorMessage';
-
+import InputField from '@components/molecules/InputField/InputField'; 
+import PasswordInput from '@components/molecules/PasswordInput/PasswordInput'; 
+import SelectField from '@components/molecules/SelectField/SelectField'; 
+import Button from '@components/atoms/Button/Button'; 
+import ErrorMessage from '@components/atoms/ErrorMessage/ErrorMessage'; 
 interface RegisterFormProps {
   onSubmit: (values: {
     name: string;

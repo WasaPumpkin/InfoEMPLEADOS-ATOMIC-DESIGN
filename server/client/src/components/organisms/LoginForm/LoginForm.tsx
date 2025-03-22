@@ -1,11 +1,11 @@
 //src/components/organisms/LoginForm/LoginForm.tsx
 import { Form, Formik } from 'formik';
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link
-import Button from '../../atoms/Button/Button';
-import ErrorMessage from '../../atoms/ErrorMessage/ErrorMessage';
-import InputField from '../../molecules/InputField/InputField';
-import PasswordInput from '../../molecules/PasswordInput/PasswordInput';
+import { Link } from 'react-router-dom'; 
+import Button from '@components/atoms/Button/Button'; 
+import ErrorMessage from '@components/atoms/ErrorMessage/ErrorMessage';
+import InputField from '@components/molecules/InputField/InputField'; 
+import PasswordInput from '@components/molecules/PasswordInput/PasswordInput'; 
 
 interface LoginFormProps {
   onSubmit: (values: { email: string; password: string }) => void;

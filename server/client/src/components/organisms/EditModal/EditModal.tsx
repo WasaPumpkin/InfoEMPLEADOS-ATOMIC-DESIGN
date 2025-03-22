@@ -1,8 +1,8 @@
 // src/components/organisms/EditModal/EditModal.tsx
 import React from 'react';
 import Modal from 'react-modal';
-import Input from '../../atoms/Input/Input';
-import Button from '../../atoms/Button/Button';
+import Input from '@components/atoms/Input/Input'; 
+import Button from '@components/atoms/Button/Button'; 
 
 interface EditModalProps {
   isOpen: boolean;

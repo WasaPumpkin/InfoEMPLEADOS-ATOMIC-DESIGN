@@ -2,11 +2,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-// import { loginUser } from '../../../features/auth/authSlice';
-import { loginUser } from '../../../features/auth/authThunks'; // Import from authThunks.ts
-import type { AppDispatch, RootState } from '../../../features/store';
-import logo from '../../../img/Logo.png';
-import LoginForm from '../../organisms/LoginForm/LoginForm';
+import { loginUser } from '@features/auth/authThunks'; 
+import type { AppDispatch, RootState } from '@features/store'; 
+import logo from '@img/Logo.png'; 
+import LoginForm from '@components/organisms/LoginForm/LoginForm'; 
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

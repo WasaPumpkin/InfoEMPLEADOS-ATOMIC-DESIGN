@@ -1,4 +1,4 @@
-//features/auth/reducers.ts
+//src/features/auth/reducers.ts
 import { AuthState } from './types';
 
 // Logout reducer

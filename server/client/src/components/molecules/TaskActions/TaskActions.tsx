@@ -1,7 +1,7 @@
 // src/components/molecules/TaskActions/TaskActions.tsx
 import React from 'react';
-import Button from '../../atoms/Button/Button';
-import { Task } from '../../../features/tasks/types';
+import Button from '@components/atoms/Button/Button'; // Use the alias
+import { Task } from '@features/tasks/types'; // Use the alias
 
 interface TaskActionsProps {
   userRole: string;

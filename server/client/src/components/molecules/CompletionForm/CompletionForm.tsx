@@ -1,7 +1,7 @@
 //src/components/molecules/CompletionForm/CompletionForm.tsx
 import React from 'react';
-import Button from '../../atoms/Button/Button';
-import Input from '../../atoms/Input/Input';
+import Button from '@components/atoms/Button/Button'; // Use the alias
+import Input from '@components/atoms/Input/Input'; // Use the alias
 
 interface CompletionFormProps {
   completionMessage: string;

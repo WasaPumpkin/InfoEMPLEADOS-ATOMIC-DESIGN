@@ -1,4 +1,4 @@
-//features/auth/initialState.ts
+//src/features/auth/initialState.ts
 import { AuthState } from './types';
 
 // Retrieve user info from localStorage if available

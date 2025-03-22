@@ -1,10 +1,9 @@
 //src/components/templates/Layout/Layout.tsx
 import React from 'react';
-import Header from '../../organisms/Header/Header';
-
+import Header from '@components/organisms/Header/Header'; 
 interface LayoutProps {
   children: React.ReactNode;
-  toggleTheme: () => void; // Add toggleTheme prop
+  toggleTheme: () => void; 
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, toggleTheme }) => {

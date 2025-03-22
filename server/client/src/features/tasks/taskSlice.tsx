@@ -1,34 +1,3 @@
-// // //features/tasks/taskSlice.tsx
-// import { createSlice } from '@reduxjs/toolkit';
-// import initialState from './initialState';
-// import { extraReducers } from './extraReducers';
-// import { resetErrorReducer } from './reducers';
-// import {
-//   fetchTasks,
-//   createTask,
-//   deleteTask,
-//   completeTask,
-//   editTask,
-// } from './taskThunks'; // Import thunks
-
-// const taskSlice = createSlice({
-//   name: 'tasks',
-//   initialState,
-//   reducers: {
-//     resetError: resetErrorReducer,
-//   },
-//   extraReducers,
-// });
-
-// // Export actions
-// export const { resetError } = taskSlice.actions;
-
-// // Export thunks as actions
-// export { fetchTasks, createTask, deleteTask, completeTask, editTask };
-
-// export default taskSlice.reducer;
-
-// features/tasks/taskSlice.tsx
 // src/features/tasks/taskSlice.ts
 // Import PayloadAction from @reduxjs/toolkit
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';

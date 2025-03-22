@@ -1,7 +1,7 @@
 // src/components/organisms/CompletionModal/CompletionModal.tsx
 import React from 'react';
 import Modal from 'react-modal';
-import CompletionForm from '../../molecules/CompletionForm/CompletionForm';
+import CompletionForm from '@components/molecules/CompletionForm/CompletionForm'; 
 
 interface CompletionModalProps {
   isOpen: boolean;

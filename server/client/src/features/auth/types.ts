@@ -1,5 +1,5 @@
-//features/auth/types.ts
-// Define the UserInfo interface
+//src/features/auth/types.ts
+
 export interface UserInfo {
   _id: string;
   name: string;

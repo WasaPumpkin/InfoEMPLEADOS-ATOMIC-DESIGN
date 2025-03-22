@@ -1,7 +1,7 @@
 // src/components/organisms/DeleteModal/DeleteModal.tsx
 import React from 'react';
 import Modal from 'react-modal';
-import Button from '../../atoms/Button/Button';
+import Button from '@components/atoms/Button/Button';
 
 interface DeleteModalProps {
   isOpen: boolean;

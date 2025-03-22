@@ -2,24 +2,24 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import type { AppDispatch } from '../../../features/store';
+import type { AppDispatch } from '@features/store'; // Use the alias
 import {
   completeTask,
   deleteTask,
   editTask,
-} from '../../../features/tasks/taskThunks';
+} from '@features/tasks/taskThunks'; // Use the alias
 import { getUserById } from '../../../services/userService';
-import TaskDetails from '../../molecules/TaskDetails/TaskDetails';
-import TaskActions from '../../molecules/TaskActions/TaskActions';
-import CompletionModal from '../CompletionModal/CompletionModal';
-import DeleteModal from '../DeleteModal/DeleteModal';
-import EditModal from '../EditModal/EditModal';
-import { Task } from '../../../features/tasks/types';
+import TaskDetails from '@components/molecules/TaskDetails/TaskDetails'; // Use the alias
+import TaskActions from '@components/molecules/TaskActions/TaskActions'; // Use the alias
+import CompletionModal from '@components/organisms/CompletionModal/CompletionModal'; // Use the alias
+import DeleteModal from '@components/organisms/DeleteModal/DeleteModal'; // Use the alias
+import EditModal from '@components/organisms/EditModal/EditModal'; // Use the alias
+import { Task } from '@features/tasks/types'; // Use the alias
 
 interface TaskItemProps {
   task: Task;
   userRole: string;
-}
+} 
 
 const TaskItem: React.FC<TaskItemProps> = ({ task, userRole }) => {
   const dispatch = useDispatch<AppDispatch>();

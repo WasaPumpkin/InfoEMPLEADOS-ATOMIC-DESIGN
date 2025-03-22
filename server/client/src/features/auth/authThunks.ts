@@ -1,4 +1,4 @@
-//features/auth/authThunks.ts
+//src/features/auth/authThunks.ts
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import {

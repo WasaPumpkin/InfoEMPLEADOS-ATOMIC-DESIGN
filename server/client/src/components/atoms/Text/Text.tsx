@@ -1,5 +1,4 @@
 // src/components/atoms/Text/Text.tsx
-// src/components/atoms/Text.tsx
 import React from 'react';
 
 interface TextProps {

@@ -1,4 +1,4 @@
-//features/tasks/reducers.ts
+//src/features/tasks/reducers.ts
 import { TaskState } from './types';
 
 export const resetErrorReducer = (state: TaskState) => {

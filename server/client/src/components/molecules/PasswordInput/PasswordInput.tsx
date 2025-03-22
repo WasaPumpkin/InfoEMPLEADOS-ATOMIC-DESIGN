@@ -1,17 +1,18 @@
-//src/components/molecules/PasswordInput/PasswordInput.tsx
+// src/components/molecules/PasswordInput/PasswordInput.tsx
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Field } from 'formik'; // Import Field from Formik
+import { Field } from 'formik'; 
 import React, { useState } from 'react';
-import Button from '../../atoms/Button/Button';
-import ErrorMessage from '../../atoms/ErrorMessage/ErrorMessage';
-
+import Button from '@components/atoms/Button/Button'; // Use the alias
+import ErrorMessage from '@components/atoms/ErrorMessage/ErrorMessage'; // Use the alias
+import Label from '@components/atoms/Label/Label'; // Use the alias
 interface PasswordInputProps {
   label: string;
   id: string;
   name: string;
   error?: string;
   ariaRequired?: boolean;
+  required?: boolean; // Add required prop to match LabelProps
 }
 
 const PasswordInput: React.FC<PasswordInputProps> = ({
@@ -20,14 +21,15 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
   name,
   error,
   ariaRequired,
+  required,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="auth__group">
-      <label htmlFor={id} className="auth__label">
+      <Label htmlFor={id} className="auth__label" required={required}>
         {label}
-      </label>
+      </Label>
       <div className="auth__password-input">
         <Field
           type={showPassword ? 'text' : 'password'}

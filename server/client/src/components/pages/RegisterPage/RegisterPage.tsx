@@ -2,10 +2,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { registerUser } from '../../../features/auth/authThunks';
-import type { AppDispatch, RootState } from '../../../features/store';
-import logo from '../../../img/Logo.png';
-import RegisterForm from '../../organisms/RegisterForm/RegisterForm';
+import { registerUser } from '@features/auth/authThunks'; 
+import type { AppDispatch, RootState } from '@features/store'; 
+import logo from '@img/Logo.png'; 
+import RegisterForm from '@components/organisms/RegisterForm/RegisterForm'; 
 
 const RegisterPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

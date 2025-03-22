@@ -1,7 +1,7 @@
 //src/components/molecules/SelectField/SelectField.tsx
 import { Field } from 'formik';
 import React from 'react';
-import ErrorMessage from '../../atoms/ErrorMessage/ErrorMessage';
+import ErrorMessage from '@components/atoms/ErrorMessage/ErrorMessage'; // Use the alias
 
 interface SelectFieldProps {
   label: string;

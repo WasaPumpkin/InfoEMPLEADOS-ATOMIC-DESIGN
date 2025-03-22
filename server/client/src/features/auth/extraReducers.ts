@@ -1,4 +1,4 @@
-//features/auth/extraReducers.ts
+//src/features/auth/extraReducers.ts
 import { loginUser, registerUser } from './authThunks';
 import { AuthState, UserInfo } from './types';
 import { PayloadAction, ActionReducerMapBuilder } from '@reduxjs/toolkit';

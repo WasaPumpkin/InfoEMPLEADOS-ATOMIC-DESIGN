@@ -1,4 +1,4 @@
-////features/auth/authService.ts
+////src/features/auth/authService.ts
 import axios from 'axios';
 import { LoginCredentials, RegisterCredentials, UserInfo } from './types';
 

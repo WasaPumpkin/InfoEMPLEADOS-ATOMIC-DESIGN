@@ -118,9 +118,37 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -128,15 +156,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,21 +191,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/components/organisms/Header/Header.tsx
-// src/components/organisms/Header/Header.tsx
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// src/components/organisms/Header/Header.tsx
 import React from 'react';
+<span class="cstat-no" title="statement not covered" >import { useDispatch, useSelector } from 'react-redux';</span>
 <span class="cstat-no" title="statement not covered" >import { Link, useNavigate } from 'react-router-dom';</span>
-<span class="cstat-no" title="statement not covered" >import { useSelector, useDispatch } from 'react-redux';</span>
-import type { RootState } from '../../../features/store'; // Import the RootState type
 <span class="cstat-no" title="statement not covered" >import { logout } from '../../../features/auth/authSlice';</span>
-<span class="cstat-no" title="statement not covered" >import Button from '../../atoms/Button/Button';</span>
-<span class="cstat-no" title="statement not covered" >import './Header.css';</span>
+import { RootState } from '../../../features/store';
+<span class="cstat-no" title="statement not covered" >import logo from '../../../img/Logo.png';</span>
+<span class="cstat-no" title="statement not covered" >import Button from '../../atoms/Button/Button'; </span>// Import the Button component
 &nbsp;
-const Header: React.FC = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+interface HeaderProps {
+  toggleTheme: () =&gt; void; // Define the prop type
+}
+&nbsp;
+const Header: React.FC&lt;HeaderProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> toggleTheme }) =&gt; {</span>
   const dispatch = <span class="cstat-no" title="statement not covered" >useDispatch();</span>
   const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
-  const { userInfo } = <span class="cstat-no" title="statement not covered" >useSelector(<span class="fstat-no" title="function not covered" >(s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state.auth)</span>;</span> // Typed state
+  const { userInfo } = <span class="cstat-no" title="statement not covered" >useSelector(<span class="fstat-no" title="function not covered" >(s</span>tate: RootState) =&gt; <span class="cstat-no" title="statement not covered" >state.auth)</span>;</span>
 &nbsp;
   const handleLogout = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    dispatch(logout());</span>
@@ -196,18 +231,24 @@ const Header: React.FC = <span class="cstat-no" title="statement not covered" ><
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;header className="header"&gt;
       &lt;div className="header__container"&gt;
-        &lt;h1 className="header__logo"&gt;
+        &lt;div className="header__logo-container"&gt;
           &lt;Link to="/" className="header__logo-link"&gt;
-            infoEMPLEADOS
+            &lt;img src={logo} alt="Company Logo" className="header__logo" /&gt;
+            &lt;h1 className="header__title"&gt;infoEMPLEADOS&lt;/h1&gt;
           &lt;/Link&gt;
-        &lt;/h1&gt;
+        &lt;/div&gt;
         &lt;nav className="header__nav"&gt;
           {userInfo ? (
             &lt;&gt;
               &lt;span className="header__user"&gt;
-                Hello, {userInfo.name} ({userInfo.role === 'admin' ? 'Admin' : 'Employee'})
+                Hello, {userInfo.name} (
+                {userInfo.role === 'admin' ? 'Admin' : 'Employee'})
               &lt;/span&gt;
-              &lt;Button className="button--secondary" onClick={handleLogout}&gt;
+              &lt;Button
+                onClick={handleLogout}
+                className="header__logout-btn"
+                ariaLabel="Logout"
+              &gt;
                 Logout
               &lt;/Button&gt;
             &lt;/&gt;
@@ -221,21 +262,28 @@ const Header: React.FC = <span class="cstat-no" title="statement not covered" ><
               &lt;/Link&gt;
             &lt;/&gt;
           )}
+          {/* Add Theme Toggle Button */}
+          &lt;Button
+            onClick={toggleTheme}
+            className="header__theme-toggle"
+            ariaLabel="Toggle Theme"
+          &gt;
+            Toggle Theme
+          &lt;/Button&gt;
         &lt;/nav&gt;
       &lt;/div&gt;
     &lt;/header&gt;
   );
 };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default Header;</span>
-&nbsp;</pre></td></tr></table></pre>
+<span class="cstat-no" title="statement not covered" >export default Header; </span>// Ensure default export</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-26T18:48:44.832Z
+                at 2025-03-14T17:10:45.767Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

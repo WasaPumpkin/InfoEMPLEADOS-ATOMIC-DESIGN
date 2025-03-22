@@ -1,6 +1,6 @@
-// src/components/molecules/Pagination/Pagination.tsx
-import React from 'react';
-import Button from '../../atoms/Button/Button';
+// // src/components/molecules/Pagination/Pagination.tsx
+import React, { useState } from 'react';
+import Button from '@components/atoms/Button/Button'; 
 
 interface PaginationProps {
   currentPage: number;
@@ -13,6 +13,14 @@ const Pagination: React.FC<PaginationProps> = ({
   totalPages,
   onPageChange,
 }) => {
+  const [selectedPage, setSelectedPage] = useState(currentPage);
+
+  const handlePageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const page = parseInt(e.target.value, 10);
+    setSelectedPage(page);
+    onPageChange(page);
+  };
+
   return (
     <div className="pagination">
       {/* Previous Button */}
@@ -24,10 +32,18 @@ const Pagination: React.FC<PaginationProps> = ({
         Previous
       </Button>
 
-      {/* Current Page Info */}
-      <span>
-        Page {currentPage} of {totalPages}
-      </span>
+      {/* Page Selection Dropdown */}
+      <select
+        value={selectedPage}
+        onChange={handlePageChange}
+        aria-label="Select page"
+      >
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <option key={page} value={page}>
+            Page {page}
+          </option>
+        ))}
+      </select>
 
       {/* Next Button */}
       <Button

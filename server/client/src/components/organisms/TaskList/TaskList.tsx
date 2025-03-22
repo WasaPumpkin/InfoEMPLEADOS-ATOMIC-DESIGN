@@ -1,43 +1,8 @@
-// //src/components/organisms/TaskList/TaskList.tsx
-// import React from 'react';
-// import TaskItem from '../TaskItem/TaskItem';
-
-// interface Task {
-//   _id: string;
-//   text: string;
-//   assignedTo: string;
-//   status: string;
-//   completedAt?: string;
-//   completionMessage?: string;
-// }
-
-// interface TaskListProps {
-//   tasks: Task[];
-//   userRole: string;
-// }
-
-// const TaskList: React.FC<TaskListProps> = ({ tasks, userRole }) => {
-//   if (tasks.length === 0) {
-//     return <p className="task-list__empty">No tasks available</p>;
-//   }
-
-//   return (
-//     <ul className="task-list">
-//       {tasks.map((task) => (
-//         <TaskItem key={task._id} task={task} userRole={userRole} />
-//       ))}
-//     </ul>
-//   );
-// };
-
-// export default TaskList;
-
-// src/components/organisms/TaskList/TaskList.tsx
+//src/components/organisms/TaskList/TaskList.tsx
 import React from 'react';
-import TaskItem from '../TaskItem/TaskItem';
-import Pagination from '../../molecules/Pagination/Pagination';
-import { Task } from '../../../features/tasks/types';
-
+import TaskItem from '@components/organisms/TaskItem/TaskItem'; // Use the alias
+import Pagination from '@components/molecules/Pagination/Pagination'; // Use the alias
+import { Task } from '@features/tasks/types'; // Use the alias
 interface TaskListProps {
   tasks: Task[];
   userRole: string;
